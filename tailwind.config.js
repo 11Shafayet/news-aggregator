@@ -8,8 +8,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        jost: 'Jost',
-        playfair: 'Playfair Display',
+        heebo: 'Heebo',
         protest: 'Protest Revolution',
       },
       colors: {
