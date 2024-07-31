@@ -1,14 +1,11 @@
-import NewsAPI from '../components/NewsAPI';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import FilterBar from '../components/FilterBar';
+import NewsAPI from '../components/NewsAPI';
+import TheGuardianAPI from '../components/TheGuardianAPI';
 
 const Home = () => {
   const { selectedSource } = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log(selectedSource);
-  }, [selectedSource]);
 
   return (
     <div className="relative py-8">
@@ -20,7 +17,10 @@ const Home = () => {
         {/* filter bar */}
         <FilterBar />
         {/* news grid */}
-        <NewsAPI />
+        {selectedSource === 'newsapi' && <NewsAPI />}
+        {selectedSource === 'the-guardian' && <TheGuardianAPI />}
+        {selectedSource === 'new-york-times' && <NewsAPI />}
+        <TheGuardianAPI />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const Select = ({ data, placeholder, name, id, value, setValue }) => {
       value={value}
       onChange={(e) => setValue(e.target.value)}
     >
-      <option value="" hidden defaultChecked>
+      <option hidden defaultChecked>
         {placeholder ? placeholder : 'Choose your option'}
       </option>
       {data.map((item, i) => (

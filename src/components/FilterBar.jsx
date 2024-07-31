@@ -1,4 +1,3 @@
-import { FaSearch } from 'react-icons/fa';
 import Select from './Select';
 import { sources, newsapiCat, newsapiSort } from '/src/data/data';
 import { useContext } from 'react';
@@ -14,13 +13,16 @@ const FilterBar = () => {
     setSelectedDate,
     selectedSort,
     setSelectedSort,
+    searchedText,
+    setSearchedText,
   } = useContext(AuthContext);
 
   return (
     <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4">
       {/* filters */}
-      <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+      <div className="flex flex-col sm:flex-row flex-wrap items-end gap-4">
         {/* source */}
+
         <Select
           data={sources}
           name={'sources'}
@@ -29,24 +31,18 @@ const FilterBar = () => {
           value={selectedSource}
           setValue={setSelectedSource}
         />
+
         {/* category */}
-        <Select
-          data={newsapiCat}
-          name={'newsapicat'}
-          id={'newsapicat'}
-          placeholder={'Category'}
-          value={selectedCategory}
-          setValue={setSelectedCategory}
-        />
-        {/* date */}
-        <Select
-          data={newsapiCat}
-          name={'sources'}
-          id={'sources'}
-          placeholder={'Date'}
-          value={selectedDate}
-          setValue={setSelectedDate}
-        />
+        {selectedSource === 'newsapi' && (
+          <Select
+            data={newsapiCat}
+            name={'newsapicat'}
+            id={'newsapicat'}
+            placeholder={'Category'}
+            value={selectedCategory}
+            setValue={setSelectedCategory}
+          />
+        )}
         {/* sort by */}
         <Select
           data={newsapiSort}
@@ -56,6 +52,22 @@ const FilterBar = () => {
           value={selectedSort}
           setValue={setSelectedSort}
         />
+        {/* date */}
+        <div className="flex flex-col">
+          <label htmlFor="from">From:</label>
+          <input
+            type="date"
+            className="border rounded p-2 h-full"
+            value={selectedDate?.from}
+            onChange={(e) =>
+              setSelectedDate((prev) => ({ ...prev, from: e.target.value }))
+            }
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="to">To:</label>
+          <input type="date" className="border rounded p-2 h-full" />
+        </div>
       </div>
       {/* search bar */}
 
@@ -63,11 +75,13 @@ const FilterBar = () => {
         <input
           type="text"
           placeholder="Search Here....."
-          className="border p-2 rounded-s"
+          className="border p-2 rounded-md"
+          value={searchedText}
+          onChange={(e) => setSearchedText(e.target.value)}
         />
-        <div className="flex items-center justify-center w-11 rounded-e bg-black text-white">
+        {/* <div className="flex items-center justify-center w-11 rounded-e bg-black text-white">
           <FaSearch className="" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
